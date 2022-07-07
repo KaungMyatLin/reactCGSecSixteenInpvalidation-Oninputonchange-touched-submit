@@ -59,7 +59,7 @@ const SimpleInput = (props) => {
         {nameInpHasError && <p className="error-text">Not empty</p>}
       </div>
       <div className={emInputClasses}>
-        <label htmlFor="name">Your Name</label>
+        <label htmlFor="name">Your Email</label>
         <input
           type="text"
           id="name"

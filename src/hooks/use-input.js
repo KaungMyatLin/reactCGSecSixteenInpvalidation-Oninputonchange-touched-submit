@@ -6,16 +6,16 @@ const initialInpStates = {
 }
 
 const inputReducer = (state, action) => {
-    if (action.type === 'input') {
-        return {value: action.val, isTouched: state.isTouched};      // it is like taking in and giving back val, and also giving existing touched state.
+    if (action.type === "Input") {
+        return {val: action.value, isTouched: state.isTouched};      // it is like taking in and giving back val, and also giving existing touched state.
     }
-    if (action.type === 'blur') {
-        return {isTouched: true, value: state.val}                  // giving existing val state.
+    if (action.type === "Blur") {
+        return {isTouched: true, val: state.val}                  // giving existing val state.
     }
-    if (action.type === 'reset') {
-        return {isTouched: false, value: ''}
+    if (action.type === "Reset") {
+        return {isTouched: false, val: ''}
     }
-    return initialInpStates
+    return inputReducer
 }
 
 const useInput = (validateVal) => {
@@ -25,16 +25,14 @@ const useInput = (validateVal) => {
     const hasError = !inpValisValid && inpState.isTouched;
 
     const inpValChangeHandler = event => {
-        dispatch({type: "input", value: event.target.value})
+        dispatch({type: "Input", value: event.target.value})
     }
     const inpValBlurHandler = event => {
-        dispatch({type: "blur"})
+        dispatch({type: "Blur"})
     }
-
     const reset = () => {
-        dispatch({type: "reset"})
+        dispatch({type: "Reset"})
     }
-
     return {
         val: inpState.val,
         isValid: inpValisValid,
