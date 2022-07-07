@@ -1,28 +1,42 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+const initialInpStates = {
+    val: '',
+    isTouched: false,
+}
+
+const inputReducer = (state, action) => {
+    if (action.type === 'input') {
+        return {value: action.val, isTouched: state.isTouched};      // it is like taking in and giving back val, and also giving existing touched state.
+    }
+    if (action.type === 'blur') {
+        return {isTouched: true, value: state.val}                  // giving existing val state.
+    }
+    if (action.type === 'reset') {
+        return {isTouched: false, value: ''}
+    }
+    return initialInpStates
+}
 
 const useInput = (validateVal) => {
-    // copy states, then inferred state, then argument, then return, then functions.
-    const [enteredVal, setenteredVal] = useState('');
-    const [isTouched, setisTouched] = useState(false);
+    const [inpState, dispatch] = useReducer(inputReducer, initialInpStates);
 
-    // inferred state.
-    const inpValisValid = validateVal(enteredVal);
-    const hasError = !inpValisValid && isTouched;
+    const inpValisValid = validateVal(inpState.val);
+    const hasError = !inpValisValid && inpState.isTouched;
 
     const inpValChangeHandler = event => {
-        setenteredVal(event.target.value);
+        dispatch({type: "input", value: event.target.value})
     }
     const inpValBlurHandler = event => {
-        setisTouched(true);
+        dispatch({type: "blur"})
     }
 
     const reset = () => {
-        setenteredVal('');
-        setisTouched('');
+        dispatch({type: "reset"})
     }
 
     return {
-        val: enteredVal,
+        val: inpState.val,
         isValid: inpValisValid,
         hasError,
         inpValChangeHandler,
