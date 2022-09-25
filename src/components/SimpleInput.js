@@ -1,6 +1,6 @@
-import useInput from "../hooks/use-input";
+import useInput from "../hooks/useInputHkXreducer";
 
-const SimpleInput = (props) => {
+const SimpleInput = () => {
   const {
     val: enteredN,
     hasError: nameInpHasError,

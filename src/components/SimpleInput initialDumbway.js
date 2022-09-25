@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SimpleInput = (props) => {
+const SimpleInput = () => {
   const [enteredN, setEnteredN] = useState('');
   const [enteredNisValid, setEnteredNisValid] = useState(false);
   const [enteredNTouched, setenteredNTouched] = useState(false);
@@ -13,7 +13,7 @@ const SimpleInput = (props) => {
     }
     setEnteredNisValid(false);
   }
-  const nameInputBlurHandler = event => {
+  const nameInputBlurHandler = () => {
     setenteredNTouched(true);
 
     if (enteredN.trim() === '') {
